@@ -1,11 +1,13 @@
-from products.models import Product
+from products.serializers import ProductSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from products.serializers import ProductSerializer
 
 
-@api_view(["GET", "POST"])
+@api_view(["POST"])
 def api_home(request):
-    instance = Product.objects.all().order_by("?").first()
-    data = ProductSerializer(instance).data
-    return Response(data)
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        instance = serializer.save()
+        print(instance)
+        return Response(serializer.data)
+    return Response({"invalid": "not goo data"}, status=400)
