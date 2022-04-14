@@ -1,15 +1,11 @@
-from django.forms import model_to_dict
-from django.forms.models import model_to_dict
 from products.models import Product
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from products.serializers import ProductSerializer
 
 
 @api_view(["GET", "POST"])
 def api_home(request):
-    model_data = Product.objects.all().order_by("?").first()
-    data = {}
-    if model_data:
-        data = model_to_dict(model_data, fields=['id', 'title'])
-
+    instance = Product.objects.all().order_by("?").first()
+    data = ProductSerializer(instance).data
     return Response(data)
