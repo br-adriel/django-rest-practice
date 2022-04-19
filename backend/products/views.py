@@ -24,3 +24,9 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     # lookup_field = 'pk'
+
+
+class ProductListAPIView(generics.ListAPIView):
+    "Not being used on the app"
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
