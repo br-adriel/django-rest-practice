@@ -4,7 +4,9 @@ from .models import Product
 from .serializers import ProductSerializer
 
 
-class ProductCreateAPIView(generics.CreateAPIView):
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+    """ when used with post request, this view creates products """
+    """ when used with get request, this view list the products """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
